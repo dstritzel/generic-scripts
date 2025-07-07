@@ -1,19 +1,20 @@
 import boto3
+import json
 
 client = boto3.client('elbv2')
 
-loadbalancers = client.describe_load_balancers(names=['my-loadbalancer'])
+loadbalancers = client.describe_load_balancers()
 
 new_list = []
+json_obj = ""
 
 for loadbalancer in loadbalancers['LoadBalancers']:
-    lb = loadbalancer;
+    lb = dict(loadbalancer)
+    lb['CreatedTime'] = ""
     lb['Listeners'] = [] 
     listeners = client.describe_listeners(LoadBalancerArn=loadbalancer['LoadBalancerArn'])
-    for listener in listMoeners['Listeners']:
+    for listener in listeners['Listeners']:
         lb['Listeners'].append(listener)
-        lb['Listeners']['Rules'] = []
-        rules = client.describe_rules(ListenerArn=listener['ListenerArn'])
-        for rule in rules['Rules']:
-            lb['Listeners']['Rules'].append(rule)
-    print(new_list)
+    new_list.append(lb)
+    json_obj = json.dumps(new_list, indent = 2 )
+print(json_obj)
