@@ -59,3 +59,9 @@ python <script-name>.py
 - Python 3.x
 - AWS CLI configured (for AWS scripts)
 - Appropriate IAM permissions for the resources you're accessing
+- A change is needed to allow rate limiting retry to be adaptive and more tries for larger deployments
+  The change is in .aws/config
+    ```ini
+    retry_mode = adaptive
+    max_attempts = 10
+    ```
