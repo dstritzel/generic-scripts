@@ -23,12 +23,23 @@ This script retrieves detailed information about all Elastic Load Balancers (ELB
 - Retrieves associated listeners for each load balancer
 - Outputs comprehensive load balancer configuration in JSON format
 - Includes load balancer attributes like ARN, DNS name, scheme, state, type, VPC ID, and availability zones
+- Supports output to file or stdout via command line arguments
+- Comprehensive error handling and user-friendly messages
 
 **Usage:**
 ```bash
 cd aws/pull-lb-info
 pip install -r requirements.txt
+
+# Output to stdout (console)
 python list-lb-info.py
+
+# Output to a file
+python list-lb-info.py -o loadbalancers.json
+python list-lb-info.py --output lb_info.json
+
+# Show help
+python list-lb-info.py --help
 ```
 
 **Output:**
